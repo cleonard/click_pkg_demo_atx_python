@@ -22,7 +22,14 @@ From [https://click.palletsprojects.com/en/8.0.x/][1]:
 - Run `get_weather --help` to see the documentation that `click` generates
 - Run command with no options (it has default values): `get_weather`
 - Run with options: `get_weather -c Austin,TX -u I -l es`.  `I` means "Imperial"
-  (Fahrenheit (F, mph, in)) and `es` is for Spanish results.
+  (Fahrenheit (F, mph, in)) and `es` is for Spanish language results.
+
+## Note
+
+This isn't a full implementation of the weather API I'm consuming. Running
+`get_weather -c London` returns data for London, Arkansas. A more complete
+implementation would include options to explicitly provide a US state an/or
+country code.
 
 ## License
 

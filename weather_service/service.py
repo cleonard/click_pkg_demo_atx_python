@@ -9,6 +9,8 @@ from textwrap import dedent
 import click
 import requests
 
+DB_FILE = "weather.db"  # I know, not DRY
+
 # Get api key from environment variable
 API_KEY = os.environ.get("WEATHERBIT_API_KEY")
 if not API_KEY:
@@ -23,13 +25,15 @@ def get_weather(city, units, lang):
     url = base_url + querystring
     r = requests.get(url)
     if r.status_code == 200:
+        # print(r.json())
         return r.json()
     else:
+        # print(r.text)
         return r.text
 
 
 def log_weather(weather_data):
-    """Log the full json respose to a file"""
+    """Insert weather data into a database."""
 
     cnx = sqlite3.connect("weather.db")
     cursor = cnx.cursor()
@@ -61,7 +65,7 @@ def log_weather(weather_data):
     default="Austin,TX",
     help=dedent(
         """
-    The location for which to get current weather. Should be in the format:
+    The city location for which to get current weather. Should be in the format:
     {city},{state code},{country code} (i.e Austin,tx,us or Austin,tx).
     Defaults to "Austin,TX".
     """.strip()
@@ -93,15 +97,19 @@ def log_weather(weather_data):
     ),
 )
 def cli(city, units, language):
-    weather = get_weather(city, units, language)["data"][0]
-    log_weather(weather)
-    output = 'The weather in {}, {} is "{}" with a temp of {}.'.format(
-        weather["city_name"],
-        weather["country_code"],
-        weather["weather"]["description"],
-        weather["temp"],
-    )
-    click.echo(output)
+    weather_response = get_weather(city, units, language)
+    if isinstance(weather_response, dict):
+        weather = weather_response["data"][0]
+        log_weather(weather)
+        output = 'The weather in {}, {} is "{}" with a temp of {}.'.format(
+            weather["city_name"],
+            weather["country_code"],
+            weather["weather"]["description"],
+            weather["temp"],
+        )
+        click.echo(output)
+    else:
+        click.echo(weather_response)
 
 
 if __name__ == "__main__":
