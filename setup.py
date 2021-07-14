@@ -9,7 +9,7 @@ if sys.version_info < (3, 6, 0):
 
 """Creates a sqlite database for storing weather data"""
 
-DB_FILE = "weather.db"
+DB_FILE = "weather_service.db"
 
 cnx = sqlite3.connect(DB_FILE)
 cursor = cnx.cursor()
@@ -28,7 +28,10 @@ cursor.execute(create_table)
 cursor.close()
 cnx.close()
 
+# Set up
+
 requirements = ["click", "requests"]
+
 
 setup(
     name="click_pkg_demo_atx_python",
