@@ -14,7 +14,7 @@ setup(
     description="A demonstration of the Python Click package",
     entry_points="""
         [console_scripts]
-        get_weather=weather_api:cli
+        get_weather=weather_service.service:cli
      """,
     install_requires=install_requires,
     version="0.0.1",
