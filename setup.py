@@ -1,4 +1,3 @@
-import os
 import sqlite3
 import sys
 
@@ -7,15 +6,17 @@ from setuptools import setup
 if sys.version_info < (3, 6, 0):
     sys.exit("Python 3.6+ required but lower version found. Aborted.")
 
-"""Creates a sqlite database for storing weather data"""
+DB_FILE = "weather.db"
+REQS = ["click", "requests"]
 
-DB_FILE = "weather_service.db"
+"""Creates a sqlite database for storing weather data"""
 
 cnx = sqlite3.connect(DB_FILE)
 cursor = cnx.cursor()
 
+# `if not exists` is necessary because setup.py is run twice on installation
 create_table = """
-create table weather
+create table if not exists weather
 (id INTEGER PRIMARY KEY,
 city TEXT,
 county_code TEXT,
@@ -30,9 +31,6 @@ cnx.close()
 
 # Set up
 
-requirements = ["click", "requests"]
-
-
 setup(
     name="click_pkg_demo_atx_python",
     author="Chris Leonard (@cleonard)",
@@ -42,7 +40,7 @@ setup(
         [console_scripts]
         get_weather=weather_service.service:cli
      """,
-    install_requires=requirements,
+    install_requires=REQS,
     version="0.0.1",
     url="https://github.com/cleonard/click_pkg_demo_atx_python",
 )

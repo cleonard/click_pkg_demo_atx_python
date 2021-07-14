@@ -62,8 +62,8 @@ def log_weather(weather_data):
     help=dedent(
         """
     The location for which to get current weather. Should be in the format:
-    {city},{state code},{country code}
-    i.e Austin,tx,us or Austin,tx
+    {city},{state code},{country code} (i.e Austin,tx,us or Austin,tx).
+    Defaults to "Austin,TX".
     """.strip()
     ),
 )
@@ -73,9 +73,10 @@ def log_weather(weather_data):
     default="I",
     help=dedent(
         """Units for results:
-        M - [DEFAULT] Metric (Celcius, m/s, mm)
+        M - Metric (Celcius, m/s, mm)
         S - Scientific (Kelvin, m/s, mm)
         I - Fahrenheit (F, mph, in)
+        Defaults to "I" for Fahrenheit.
         """
     ),
 )
@@ -84,7 +85,12 @@ def log_weather(weather_data):
     "--lang",
     "-l",
     default="en",
-    help=("The ISO language code for the response (default `en` for English)."),
+    help=dedent(
+        """
+    The ISO language code for desired language.
+    Defaults to "en" for English.
+    """
+    ),
 )
 def cli(city, units, language):
     weather = get_weather(city, units, language)["data"][0]
