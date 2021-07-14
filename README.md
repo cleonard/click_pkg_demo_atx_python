@@ -16,7 +16,6 @@ From [https://click.palletsprojects.com/en/8.0.x/][1]:
   , `conda`) and activate it
 - Installation requires the `setuptools` package. Install using pip or conda.
 - Run `pip install --editable .`
-- Run `db.py` to create a local sqlite database with a table called `weather`
 
 ## Usage
 
