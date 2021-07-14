@@ -8,6 +8,12 @@ From [https://click.palletsprojects.com/en/8.0.x/][1]:
 - [Click on GitHub][2]
 - [Weatherbit current weather API docs][3]
 
+## Prerequisites
+
+Sign up for a [Weatherbit][3] API account. Make note of your API key and set it
+to an environment variable called `WEATHERBIT_API_KEY` that's available in the
+environment that you'll create below.
+
 ## Get code and set up
 
 - `git clone https://github.com/cleonard/click_pkg_demo_atx_python.git`
