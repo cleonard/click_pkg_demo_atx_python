@@ -97,6 +97,9 @@ def log_weather(weather_data):
     ),
 )
 def cli(city, units, language):
+    """Utility to pull weather data from an API, log it in a database, and echo
+    a string to the shell.
+    """
     weather_response = get_weather(city, units, language)
     if isinstance(weather_response, dict):
         weather = weather_response["data"][0]
